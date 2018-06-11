@@ -1,0 +1,799 @@
+---
+title: 'ISRNM Global prevalence of PEW: Supplemental Information'
+author: "(June 11, 2018)"
+date: ""
+output:
+  html_document:
+    depth: 3 # up to three depths of headings (specified by #, ## and ### etc.)
+    number_sections: no # if you want number sections at each table header
+    toc: yes # table of content true
+  pdf_document:
+    toc: yes
+  word_document:
+    toc: yes
+---
+
+```{r, echo=FALSE, cache=FALSE, message=FALSE, warning=FALSE}
+
+library(knitr)
+library(htmlTable)
+library(metafor)
+
+# Read the data:
+PEW <- read.csv(
+  "../ProcessedData/PEW_manuscript_data_2018-05-08.csv",
+  header=TRUE, sep=",", quote="\"", dec=".", na.strings = c("NA"), stringsAsFactor=FALSE)
+PEW$Country <- factor(PEW$Country)
+PEW$GNI_group <- factor(PEW$GNI_group,
+                        levels = c("high-income country",
+                                   "middle-income country",
+                                   "low-income country"))
+PEW$Year_group <- factor(PEW$Year_group,
+                         levels = c("2000-2004","2005-2009","2010-2014"))
+PEW$Study_size <-  factor(PEW$Study_size,
+                          levels = c("less than 100 patients",
+                                     "100-250 patients",
+                                     "more than 250 patients"))
+PEW$Qi_grouped <- factor(PEW$Qi_grouped,
+                         levels = c("Qi below 5/8", "Qi 5/8 or higher"))
+PEW$PD_HD_CKD_Tx <- factor(PEW$PD_HD_CKD_Tx)
+PEW$Region_PEW <- factor(PEW$Region_PEW, # Order Region_PEW (for tables and figures)
+                         levels = c(
+                           "Northern America (USA)",
+                           "Latin Am./Caribbean",
+                           "Europe",
+                           "Northern Africa (Egypt)",
+                           "Sub-Saharan Africa",
+                           "Western Asia",
+                           "Eastern Asia",
+                           "South-eastern Asia",
+                           "Southern Asia",
+                           "Oceania (Australia)"))
+
+```
+
+```{r set-options, echo=FALSE, cache=FALSE}
+options(width = 80)
+```
+
+
+(R-execution that created this file: `r date()`.)
+
+&nbsp;
+&nbsp;
+
+*****
+
+**Naming conventions:** We follow the United Nation’s association of
+countries with geographical regions
+and refer to countries by their short forms which may or may not coincide with
+the name used by that country in official documents. See the
+[United Nations M49 Standard "Standard Country or Area Codes for Statistical Use"](https://unstats.un.org/unsd/methodology/m49/). For brevity
+in our tables and figures we make
+the following exceptions from the M49 Standard names:
+“Hong Kong” refers to China, Hong Kong Special
+Administrative Region; “Korea” to the Republic of Korea; “Taiwan” to the
+island of Taiwan; “UK” to the United Kingdom of Great Britain and
+Northern Ireland; “USA” to the United States of America;
+“Iran” to Iran (Islamic Republic of).
+
+*****
+&nbsp;
+
+*****
+
+**Note on studies:**
+
+*Brown EA - 2010*: This study reports from two separate patient populations, one
+receiving Hemodialysis (HD) and one Peritoneal Dialysis (PD).  We refer to these
+two parts as *Brown EA – 2010a for the HD-group of patients* and as 
+*Brown EA - 2010b for the PD-group of patients* and count these as separate studies.
+
+*Sanabria M - 2008*: This study reports from two separate patient populations, one
+receiving Hemodialysis (HD) and one Peritoneal Dialysis (PD).  We refer to these
+two parts as *Sanabria M - 2008a for the HD-group of patients* and as 
+*Sanabria M - 2008b for the PD-group of patients* and count these as separate studies.
+
+*Hecking E – 2004*: This publication reports results for participating sites from
+five European countries and 
+contains the needed information (Tables 1 and 4) to separate PEW prevalence (moderately and severely malnourished patients as indicated in Table 4) for all five countries. We separate Hecking E – 2004 into 5 parts/studies and refer to them as *Hecking E – 2004a for France*, *Hecking E – 2004b for Germany*, *Hecking E – 2004c for Italy*, *Hecking E – 2004d for Spain*, and *Hecking E – 2004e for UK*.  All counts of studies below are with respect to these five separate parts, i.e., Hecking E – 2004 formally contributes with five studies to Europe, of which two are in Southern Europe (Italy, Spain), two in Western Europe (France, Germany), and one in Northern Europe
+(UK; the [United Nations M49 Standard](https://unstats.un.org/unsd/methodology/m49/) groups UK as Northern Europe). This assures coherent counts of studies/participants in the tables shown below. Our final meta-regression model includes region as a fixed effect and does not utilize sub-regions; we have verified that none of our conclusions change when Hecking E – 2004 is included as one study attributed to Europe (not shown).
+
+*****
+&nbsp;
+&nbsp;
+
+
+
+
+# 1 Distribution of study searches
+<a href="#top"> [Back to top] </a>
+
+Distribution of study searches within the IRSNM PEW prevalence consortium:
+
+1. **Pediatric CKD**: Rulan Parekh (MD, Canada) and Sharon Russo (MD, Canada)
+2. **Adult non-dialysis dependent patients with CKD stages 3-5**: Carla M Avesani (RD, Brazil)
+3. **Adult dialysis-dependent patients**
+    a. **In Northern America**: Adriana M Hung (MD, USA) and Rosa K Hand (RD, USA)
+    b. **In Latin America and the Caribbean**: Denise Mafra (RD, Brazil), and Angeles Espinosa-Cuevas (RD, Mexico) 
+    c. **In Asia**: 
+        i. **East and Central Asia**: Angela YM Wang (MD, China) and Jongha Park (MD, Korea). 
+        ii. **South Asia**: Anita Saxena (MD, India) 
+        iii. **Southeast Asia**: Tilakavati Karupaiah (RD, Malaysia)
+        iv. **Western Asia**: Siren Sezer (MD, Turkey) 
+    d. **In Europe**: 
+        i. **Eastern Europe**: Michal Chmielewski (MD, Poland)
+        ii. **Northern Europe**: Peter Marckmann, (MD, Denmark), Lina R Johanssen (RD, UK)
+        iii. **Southern Europe**: Daniel Teta (MD, Switzerland) and Lu Yimin (MD, Switzerland)
+        iv. **Western Europe**: Fitsum Guebre-Egziabher (MD, France) 
+    e. **In Oceania**: Maria Chan (RD, Australia) 
+    f. **In Africa**: 
+        i. **Southern and Eastern Africa**: Cecile Verseput (RD, South Africa)
+        ii. **Western and Middle Africa**: Fatiu Arogundade (MD, Nigeria) 
+        iii. **Northern Africa**: Siren Sezer (MD, Turkey)
+5. **Acute-kidney injury**: Enrico Fiaccadori (MD, Italy), Talat A Ikizler (MD, USA)
+6. **Kidney transplant patients**: Miklos Z Molnar (MD, USA), Pieter M Ter Wee (MD, Netherlands)
+
+<a href="#top"> [Back to top] </a>
+
+
+# 2 Quality index score
+<a href="#top"> [Back to top] </a>
+
+The quality index accounts for 5 different aspects of a study as given below.
+
+The maximum raw score was 8 points, representing the highest methodological quality. Disagreements in the scores were resolved by discussion and consensus. The quality index was then "normalized" to the range 0 - 1 by dividing the raw score by 8 (max. achievable).
+
+
+
+|   | Question/Property       | Answer/Feature             | Score |
+|:-:|:------------------------|:---------------------------|:-----:|
+| 1 | Were the target population and the observation period well defined? | - Yes<br>- No | 1<br>0 |
+| 2 | Does the study discuss in detail how the SGA or MIS was done and it was performed correctly? | - Yes<br>- No | 1<br>0 |
+| 3 | Method of case ascertainment | - Community survey/multiple institutions<br>- Inpatient/inpatients and outpatients/case registers<br>- Not specified| 2<br>1<br>0 |
+| 4 | Administration of measurement protocol | - Administered interview/physical exam<br>- Chart diagnosis/case records<br>- Not specified | 2<br>1<br>0 |
+| 5 | Catchment Area | - Prospective, broadly representative study<br>- Prospective, single center/limited catchment area<br>- Convenience sample (i.e., a cohort created for a different purpose) | 2<br>1<br>0 |
+| | | *Possible points (combined):*<br>**_Range final score (points/8):_** | *0 - 8*<br>**_0 - 1_** |
+
+
+<a href="#top"> [Back to top] </a>
+
+
+
+
+# 3 Dialysis studies ordered according to covariates/traits
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height=22, fig.width=11}
+mydata <- escalc(measure = "PR", xi = Cases, ni = N, data = PEW, append = TRUE)
+
+# Random-effects model ---------------------------------------------------------
+pew.res <- rma(yi, vi, data = mydata)
+
+```
+ 
+
+
+## 3.1 Dialysis studies ordered according to type of dialysis
+
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+
+pew.mes_test <- rma(yi, vi, mods = ~ PD_HD_CKD_Tx, data = mydata)
+
+```
+
+
+Observation: There does not seem to be a clear effect of the 
+type of dialysis with respect to PEW prevalence in the study
+(p = `r round(summary(pew.mes_test)$QMp, 3)`).
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height=22, fig.width=11}
+
+# Ordered according to type of dialysis:
+forest(pew.res, slab = mydata$Study_name,
+       order = rev(order(mydata$PD_HD_CKD_Tx, mydata$Country, (max(mydata$N) - mydata$N))),
+       showweights = FALSE,
+       xlim = c(-1.5, 1.5),
+       alim = c(0,1),
+       clim = c(0,1),
+       at = (0:5)/5,
+       refline = c(0, 0.2, 0.4, 0.6, 0.8, 1), #refline = coef(pew.res)
+       ilab = cbind(as.character(mydata$PD_HD_CKD_Tx), as.character(mydata$Country), mydata$N, mydata$Cases), 
+       ilab.xpos = c(-0.65, -0.65, -0.3, -0.1),
+       ilab.pos = c(2, 4, 2, 2),
+       cex = 0.75,
+       addfit = FALSE)
+
+op <- par(cex = .75, font = 2)
+text(c(-0.75, -0.58, -0.38, -0.2), 89+3, c("Dialysis", "Country", "N", "Cases"))
+text(-1.5,           89+3, "Author(s) and Year",     pos = 4)
+text(1.5,            89+3, "Prop. [95% CI]", pos = 2)
+
+abline(h=c(61.5+4), col = "gray")
+
+par(op)
+
+
+```
+<a href="#top"> [Back to top] </a>
+
+
+
+## 3.2 Dialysis studies ordered according to study size
+
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+
+pew.mes_test <- rma(yi, vi, mods = ~ N, data = mydata)
+pew.mes_test_grouped <- rma(yi, vi, mods = ~ Study_size, data = mydata)
+
+```
+
+
+Observation: The size of the study does not seem to allow
+conclusions about the PEW prevalence (p = `r round(summary(pew.mes_test)$QMp, 3)`;
+p = `r round(summary(pew.mes_test_grouped)$QMp, 3)` for grouped study size).
+But note the increasing confidence limits as study size decreases (as expected). 
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height=22, fig.width=11}
+
+forest(pew.res, slab = mydata$Study_name,
+       order = order((max(mydata$N) - mydata$N), mydata$Country),
+       showweights = FALSE,
+       psize = 1,
+       xlim = c(-1.5, 1.5),
+       alim = c(0,1),
+       clim = c(0,1),
+       at = (0:5)/5,
+       refline = c(0, 0.2, 0.4, 0.6, 0.8, 1),
+       ilab = cbind(as.character(mydata$Region_PEW), as.character(mydata$Country), mydata$N, mydata$Cases), 
+       ilab.xpos = c(-0.65, -0.65, -0.3, -0.1),
+       ilab.pos = c(2, 4, 2, 2),
+       cex = .75,
+       addfit = FALSE)
+
+
+op <- par(cex = .75, font = 2)
+text(c(-0.75, -0.58, -0.38, -0.2), 89+3, c("Region", "Country", "N", "Cases"))
+text(-1.5,           89+3, "Author(s) and Year",     pos = 4)
+text(1.5,            89+3, "Prop. [95% CI]", pos = 2)
+
+par(op)
+
+
+```
+<a href="#top"> [Back to top] </a>
+
+## 3.3 Dialysis studies ordered according to PEW determination
+
+
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+
+pew.mes_test <- rma(yi, vi, mods = ~ PEW_determination, data = mydata, method = "ML")
+# Note: For comparing models that differ in fixed effect terms (anova below),
+#       maximum likelihood estimates need to be used (method = "ML";
+#       default is "REML"):
+#       anova(pew.mes_test3,pew.mes_test2)
+pew.mes_test2 <- rma(yi, vi, mods = ~ Region_PEW, data = mydata, method = "ML")
+pew.mes_test3 <- rma(yi, vi, mods = ~ PEW_determination + Region_PEW, data = mydata, method = "ML")
+
+```
+
+
+Observation: The applied method for PEW determination does not seem to allow
+conclusions about the PEW prevalence reported in a study
+(p = `r round(anova(pew.mes_test3,pew.mes_test2)$pval, 3)` when adjusting for region;
+p = `r round(summary(pew.mes_test)$QMp, 3)` unadjusted indicates that
+PEW determination is confounded with region).
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height=22, fig.width=11}
+
+forest(pew.res, slab = mydata$Study_name,
+       order = order(mydata$PEW_determination, mydata$Country, (max(mydata$N) - mydata$N)),
+       showweights = FALSE,
+       psize = 1,
+       xlim = c(-1.5, 1.5),
+       alim = c(0,1),
+       clim = c(0,1),
+       at = (0:5)/5,
+       refline = c(0, 0.2, 0.4, 0.6, 0.8, 1),
+       ilab = cbind(as.character(mydata$PEW_determination), as.character(mydata$Country), mydata$N, mydata$Cases), 
+       ilab.xpos = c(-0.65, -0.65, -0.3, -0.1),
+       ilab.pos = c(2, 4, 2, 2),
+       cex = .75,
+       addfit = FALSE)
+
+
+op <- par(cex = .75, font = 2)
+text(c(-0.75, -0.58, -0.38, -0.2), 89+3, c("PEW determ.", "Country", "N", "Cases"))
+text(-1.5,           89+3, "Author(s) and Year",     pos = 4)
+text(1.5,            89+3, "Prop. [95% CI]", pos = 2)
+
+abline(h=c(26.5, 68.5+4, 76.5+4), col = "gray")
+
+par(op)
+
+
+```
+<a href="#top"> [Back to top] </a>
+
+## 3.4 Dialysis studies ordered according to GNI
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+
+pew.mes_test <- rma(yi, vi, mods = ~ GNI_group, data = mydata)
+
+```
+
+Observation: The GNI of the country where the study is reported from does
+not seem to allow conclusions about the PEW prevalence reported in a study (p = `r round(summary(pew.mes_test)$QMp, 3)`).
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height=22, fig.width=11}
+
+# Ordered according to GNI:
+
+forest(pew.res, slab = mydata$Study_name,
+       order = order(mydata$GNI_group, mydata$Country, (max(mydata$N) - mydata$N)),
+       showweights = FALSE,
+       psize = 1,
+       xlim = c(-1.5, 1.5),
+       alim = c(0,1),
+       clim = c(0,1),
+       at = (0:5)/5,
+       refline = c(0, 0.2, 0.4, 0.6, 0.8, 1),
+       ilab = cbind(as.character(mydata$GNI_group), as.character(mydata$Country), mydata$N, mydata$Cases), 
+       ilab.xpos = c(-0.65, -0.65, -0.3, -0.1),
+       ilab.pos = c(2, 4, 2, 2),
+       cex = .75,
+       addfit = FALSE)
+
+
+op <- par(cex = .75, font = 2)
+text(c(-0.75, -0.58, -0.38, -0.2), 89+3, c("GNI", "Country", "N", "Cases"))
+text(-1.5,           89+3, "Author(s) and Year",     pos = 4)
+text(1.5,            89+3, "Prop. [95% CI]", pos = 2)
+
+abline(h=c(4.5, 43.5), col = "gray")
+
+par(op)
+
+
+```
+<a href="#top"> [Back to top] </a>
+
+## 3.5 Dialysis studies ordered according to Quality Index
+
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+
+pew.mes_test <- rma(yi, vi, mods = ~ Qi, data = mydata)
+pew.mes_test_grouped <- rma(yi, vi, mods = ~ Qi_grouped, data = mydata)
+
+```
+
+
+Observation: The quality of a study as determined by our quality index (see S2 above)
+does not seem to allow conclusions about the PEW prevalence reported in a study (p = `r round(summary(pew.mes_test)$QMp, 3)`; p = `r round(summary(pew.mes_test_grouped)$QMp, 3)`
+for dichotomous quality index above/below 5/8).
+
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height=22, fig.width=11}
+
+# Ordered according to quality index:
+
+forest(pew.res, slab = mydata$Study_name,
+       order = order((max(mydata$Qi) - mydata$Qi), mydata$Country, (max(mydata$N) - mydata$N), decreasing = FALSE),
+       showweights = FALSE,
+       psize = 1,
+       xlim = c(-1.5, 1.5),
+       alim = c(0,1),
+       clim = c(0,1),
+       at = (0:5)/5,
+       refline = c(0, 0.2, 0.4, 0.6, 0.8, 1),
+       ilab = cbind(formatC(mydata$Qi, format = 'f', digits = 2), as.character(mydata$Country), mydata$N, mydata$Cases), 
+       ilab.xpos = c(-0.65, -0.65, -0.3, -0.1),
+       ilab.pos = c(2, 4, 2, 2),
+       cex = .75,
+       addfit = FALSE)
+
+
+op <- par(cex = .75, font = 2)
+text(c(-0.75, -0.58, -0.38, -0.2), 89+3, c("Qual. index", "Country", "N", "Cases"))
+text(-1.5,           89+3, "Author(s) and Year",     pos = 4)
+text(1.5,            89+3, "Prop. [95% CI]", pos = 2)
+
+par(op)
+
+
+```
+<a href="#top"> [Back to top] </a>
+
+
+## 3.6 Dialysis studies ordered according to publication year
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+pew.mes_test <- rma(yi, vi, mods = ~ Year_pub, data = mydata, method = "ML")
+pew.mes_test2 <- rma(yi, vi, mods = ~ Region_PEW, data = mydata, method = "ML")
+pew.mes_test3 <- rma(yi, vi, mods = ~ Region_PEW + Year_pub, data = mydata, method = "ML")
+
+```
+
+
+Observation: The year of publication
+does not seem to allow conclusions about the PEW prevalence reported in a study
+(p = `r round(anova(pew.mes_test3,pew.mes_test2)$pval, 3)` when adjusting for region;
+p = `r round(summary(pew.mes_test)$QMp, 3)` unadjusted indicates that
+publication year is confounded with region).
+
+
+We conclude that it is not the case that more recent studies start to agree
+more on PEW prevalence.
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height=22, fig.width=11}
+
+forest(pew.res, slab = mydata$Study_name,
+       order = order( (max(mydata$Year_pub) - mydata$Year_pub),
+                      mydata$Country,
+                      (max(mydata$N) - mydata$N)),
+       showweights = FALSE,
+       psize = 1,
+       xlim = c(-1.5, 1.5),
+       alim = c(0,1),
+       clim = c(0,1),
+       at = (0:5)/5,
+       refline = c(0, 0.2, 0.4, 0.6, 0.8, 1),
+       ilab = cbind(mydata$Year_pub,
+                          as.character(mydata$Country), mydata$N, mydata$Cases), 
+       ilab.xpos = c(-0.65, -0.65, -0.3, -0.1),
+       ilab.pos = c(2, 4, 2, 2),
+       cex = .75,
+       addfit = FALSE)
+
+
+op <- par(cex = .75, font = 2)
+text(c(-0.75, -0.58, -0.38, -0.2), 89+3, c("Publ. year", "Country", "N", "Cases"))
+text(-1.5,           89+3, "Author(s) and Year",     pos = 4)
+text(1.5,            89+3, "Prop. [95% CI]", pos = 2)
+
+par(op)
+
+```
+
+
+<a href="#top"> [Back to top] </a>
+
+
+## 3.7 Dialysis studies ordered according to PEW prevalence
+
+Observation: This demonstrates where the name "catterpilar plot" for
+these plots comes from. When ordered by prevalence, the aligned individual estimates
+visually resemble a hairy caterpillar.
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height=22, fig.width=11}
+
+forest(pew.res, slab = mydata$Study_name,
+       order = order(mydata$PEW_prevalence, mydata$Country, (max(mydata$N) - mydata$N)),
+       showweights = FALSE,
+       psize = 1,
+       xlim = c(-1.5, 1.5),
+       alim = c(0,1),
+       clim = c(0,1),
+       at = (0:5)/5,
+       refline = c(0, 0.2, 0.4, 0.6, 0.8, 1),
+       ilab = cbind(paste(formatC(100*(mydata$PEW_prevalence), format = 'f', digits = 1), "%", sep=""),
+                          as.character(mydata$Country), mydata$N, mydata$Cases), 
+       ilab.xpos = c(-0.65, -0.65, -0.3, -0.1),
+       ilab.pos = c(2, 4, 2, 2),
+       cex = .75,
+       addfit = FALSE)
+
+
+op <- par(cex = .75, font = 2)
+text(c(-0.75, -0.58, -0.38, -0.2), 89+3, c("Prevalence", "Country", "N", "Cases"))
+text(-1.5,           89+3, "Author(s) and Year",     pos = 4)
+text(1.5,            89+3, "Prop. [95% CI]", pos = 2)
+
+par(op)
+
+
+```
+
+<a href="#top"> [Back to top] </a>
+
+
+# 4 Synthesis of results: Fixed-effects model/meta regression for dialysis studies
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+
+mydata <- escalc(measure = "PR", xi = Cases, ni = N, data = PEW, append = TRUE)
+
+
+# Random-effects model ---------------------------------------------------------
+pew.res_rand <- rma(yi, vi, data = mydata)
+
+# mixed-effects model ---------------------------------------------------------
+pew.mes <- rma(yi, vi, mods = ~ Region_PEW, data = mydata)
+pew.mes_noint <- rma(yi, vi, mods = ~ Region_PEW -1, data = mydata)
+
+table_regions <- data.frame(Region = substr(names(summary(pew.mes_noint)$b[,1]), start = 11, stop = 50),
+                            Estimate = formatC((summary(pew.mes_noint)$b[,1]), format = "f", digits = 2),
+                            lower95 = formatC(pmax(0, summary(pew.mes_noint)$b[,1] - 1.96*summary(pew.mes_noint)$se), format = "f", digits = 2),
+                            upper95 = formatC(pmin(1, summary(pew.mes_noint)$b[,1] + 1.96*summary(pew.mes_noint)$se), format = "f", digits = 2)
+                            )
+
+colnames(table_regions) <- c("Region", "PEW-prevalence", "C.I. lower bound (95%)", "C.I. upper bound (95%)")
+
+```
+
+&nbsp;
+&nbsp;
+
+*****
+**For comparison**: A simple random-effects model renders the following statistics
+(test for heterogeneity is highly significant,
+`r ifelse(summary(pew.res_rand)$QEp < 0.0001, "p < .0001 ", paste0("p = ", round(summary(pew.res_rand)$QEp, 4)))`).
+
+| Statistic  | Explanation       | Point estimate             | 95% Conf. Int. |
+|:-----:|:-----------------------------|:--------------:|:--------------:|
+| $\tau^2$ | Estimated amount of residual heterogeneity | `r round(confint(pew.res_rand)$random["tau^2", "estimate"], 3)` |  (`r formatC(confint(pew.res_rand)$random["tau^2", "ci.lb"], format = 'f', digits = 3)`,  `r formatC(confint(pew.res_rand)$random["tau^2", "ci.ub"], format = 'f', digits = 3)`) |
+| $I^2 (\%)$ | Ratio of residual heterogeneity and unaccounted variability | `r round(confint(pew.res_rand)$random["I^2(%)", "estimate"], 2)` | (`r round(confint(pew.res_rand)$random["I^2(%)", "ci.lb"], 2)`,  `r round(confint(pew.res_rand)$random["I^2(%)", "ci.ub"], 2)`) |
+
+
+*****
+&nbsp;
+&nbsp;
+ 
+ 
+ 
+**Meta-regression**: The moderator Region in this model is highly significant (
+`r ifelse(summary(pew.mes)$QMp < 0.0001, "p < .0001 ", paste0("p = ", round(summary(pew.mes)$QMp, 3)))`
+) and 
+"explains" about `r paste0( round(summary(pew.mes)$R2, 0), "%")` of the observed heterogeneity in the data (R^2^ = `r round(summary(pew.mes)$R2, 2)`%).
+The test for residual heterogeneity is highly significant, 
+`r ifelse(summary(pew.mes)$QEp < 0.0001, "p < .0001 ", paste0("p = ", round(summary(pew.mes)$QEp, 4)))`).
+
+
+| Statistic  | Explanation       | Point estimate             | 95% Conf. Int. |
+|:-----:|:-----------------------------|:--------------:|:--------------:|
+| $\tau^2$ | Estimated amount of residual heterogeneity | `r round(confint(pew.mes)$random["tau^2", "estimate"], 3)` |  (`r formatC(confint(pew.mes)$random["tau^2", "ci.lb"], format = 'f', digits = 3)`,  `r formatC(confint(pew.mes)$random["tau^2", "ci.ub"], format = 'f', digits = 3)`) |
+| $I^2 (\%)$ | Ratio of residual heterogeneity and unaccounted variability | `r round(confint(pew.mes)$random["I^2(%)", "estimate"], 2)` | (`r round(confint(pew.mes)$random["I^2(%)", "ci.lb"], 2)`,  `r round(confint(pew.mes)$random["I^2(%)", "ci.ub"], 2)`) |
+
+
+&nbsp;
+&nbsp;
+
+
+Since this is a mixed-effects model with Region as moderator, there is no longer
+a single overall effect attributed to the studies.
+Instead, one such level can be derived for each 
+Region (level of moderator).
+
+&nbsp;
+&nbsp;
+
+**Table**: Estimates for the average PEW prevalence in the respective regions
+(model based).  *Due to the remaining high residual heterogeneity these should
+be taken as broadly indicative at best.* Each study's individual random
+sampling error would be in addition to this source of uncertainty.
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+
+kable(table_regions, row.names = FALSE, format = "markdown",
+      align = c("l", "c", "c", "c"))
+
+```
+
+&nbsp;
+&nbsp;
+
+
+The (model based) average PEW prevalences for each region are shown by the gray
+polygons in the forest plot. Their respective width corresponds to the confidence interval
+limits for the fitted values (model-based "expected" value based on the Region
+where the study was conducted; each study's individual random sampling error would be
+in addition to this source of uncertainty).
+
+
+<a href="#top"> [Back to top] </a>
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height=22, fig.width=11}
+
+forest(pew.mes, slab = mydata$Study_name,
+       order = order(mydata$Region_PEW, mydata$N),
+       showweights = FALSE,
+       addfit = TRUE, # Adds fitted values in models with moderators.
+       addcred=FALSE, # FALSE = Width of polygons reflects the confidence interval limits. 
+       xlim = c(-1.5, 1.5),
+       alim = c(0,1),
+       clim = c(0,1),
+       at = (0:5)/5,
+       refline = c(0, 0.2, 0.4, 0.6, 0.8, 1),
+       ilab = cbind(as.character(mydata$Region_PEW), mydata$N, mydata$Cases), 
+       ilab.xpos = c(-0.45, -0.3, -0.1),
+       ilab.pos = 2,
+       cex = .75)
+
+op <- par(cex = .75, font = 2)
+text(c(-0.5, -0.38, -0.2), 89+3, c("Region", "N", "Cases"))
+text(-1.5,           89+3, "Author(s) and Year",     pos = 4)
+text(1.5,            89+3, "Prop. [95% CI]", pos = 2)
+
+par(op)
+
+```
+
+
+The funnel plot does not suggest that publications would be systematically missing
+due to publication or other reporting bias: The figure shows each study's residual
+value (estimated - overall PEW proportion) against the respective estimates'
+standard error (largely determined by the study size). The latter's scale is
+inverted with highest precision (largest study sizes) at the top. In the absence
+of publication and other reporting biases, one would expect that the dots scatter
+symmetrically around the vertical line at zero residual value.  A few studies
+with low precision have high positive residual values (dots on the bottom to
+the right) which are not "balanced" by comparatively negative ones. Irrespective
+of this minor observation, we find that the bulk of the observations is rather
+balanced and therefore are not concerned with respect to publication or reporting biases.
+
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+
+funnel(pew.mes, main = "Mixed-Effects Model")
+
+
+```
+
+
+<a href="#top"> [Back to top] </a>
+
+# 5 Supplemental tables (dialysis studies)
+
+For the hierarchy of geographcial regions and subregions
+we follow the United Nation’s association of countries with geographical regions
+and refer to countries by their short forms which may or may not coincide with
+the name used by that country in official documents. See the
+[United Nations M49 Standard "Standard Country or Area Codes for Statistical Use"](https://unstats.un.org/unsd/methodology/m49/) .
+
+<a href="#top"> [Back to top] </a>
+
+## 5.1 Contributing dialysis studies by regions as used for this study
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+this.text <- function(x){unique(as.character(x))}
+count.names <- function(x){length(unique(x))}
+my.table <- merge(aggregate(Country ~ Region_PEW, data = PEW, FUN = this.text),
+                  merge(aggregate(Study_name ~ Region_PEW, data = PEW, FUN = count.names),
+                        merge(aggregate(Cases ~ Region_PEW, data = PEW, FUN = sum), 
+                              aggregate(N ~ Region_PEW, data = PEW, FUN = sum),
+                              by = "Region_PEW"),
+                        by = "Region_PEW"),
+                  by = "Region_PEW")
+my.table <- data.frame(my.table, Raw_percent = round(100*(my.table$Cases/my.table$N), 1))
+
+colnames(my.table) <- c("Region (as used in this study)", "Countries","No. of studies", "Combined Cases", "Combined N", "Raw % Cases")
+
+my.table[ , "Region (as used in this study)"] <- as.character(my.table[ , "Region (as used in this study)"])
+my.table <- rbind(my.table,
+                  c("Total", " ", sum(my.table[,3]), sum(my.table[,4]), sum(my.table[,5]),
+                    round(100*(sum(my.table[,4])/sum(my.table[,5])), 1)))
+kable(my.table, format = "markdown",
+      align = c("l", "l", "r", "r", "r", "r"))
+
+```
+
+<a href="#top"> [Back to top] </a>
+
+## 5.2 Contributing dialysis studies by geographic region
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+this.text <- function(x){unique(as.character(x))}
+count.names <- function(x){length(unique(x))}
+my.table <- merge(aggregate(Country ~ Geographic_Region, data = PEW, FUN = this.text),
+                  merge(aggregate(Study_name ~ Geographic_Region, data = PEW, FUN = count.names),
+                        merge(aggregate(Cases ~ Geographic_Region, data = PEW, FUN = sum), 
+                              aggregate(N ~ Geographic_Region, data = PEW, FUN = sum),
+                              by = "Geographic_Region"),
+                        by = "Geographic_Region"),
+                  by = "Geographic_Region")
+my.table <- data.frame(my.table, Raw_percent = round(100*(my.table$Cases/my.table$N), 1))
+colnames(my.table) <- c("Geographic Region", "Countries","No. of studies", "Combined Cases", "Combined N", "Raw % Cases")
+
+my.table[ , "Geographic Region"] <- as.character(my.table[ , "Geographic Region"])
+my.table <- rbind(my.table,
+                  c("Total", " ", sum(my.table[,3]), sum(my.table[,4]), sum(my.table[,5]),
+                    round(100*(sum(my.table[,4])/sum(my.table[,5])), 1)))
+kable(my.table, format = "markdown",
+      align = c("l", "l", "r", "r", "r", "r"))
+
+```
+
+<a href="#top"> [Back to top] </a>
+
+## 5.3 Contributing dialysis studies by geographic subregion
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+this.text <- function(x){unique(as.character(x))}
+count.names <- function(x){length(unique(x))}
+my.table <- merge(aggregate(Country ~ Geographic_Subregion, data = PEW, FUN = this.text),
+                  merge(aggregate(Study_name ~ Geographic_Subregion, data = PEW, FUN = count.names),
+                        merge(aggregate(Cases ~ Geographic_Subregion, data = PEW, FUN = sum), 
+                              aggregate(N ~ Geographic_Subregion, data = PEW, FUN = sum),
+                              by = "Geographic_Subregion"),
+                        by = "Geographic_Subregion"),
+                  by = "Geographic_Subregion")
+my.table <- data.frame(my.table, Raw_percent = round(100*(my.table$Cases/my.table$N), 1))
+colnames(my.table) <- c("Geographic Subregion", "Countries","No. of studies", "Combined Cases", "Combined N", "Raw % Cases")
+
+my.table[ , "Geographic Subregion"] <- as.character(my.table[ , "Geographic Subregion"])
+my.table <- rbind(my.table,
+                  c("Total", " ", sum(my.table[,3]), sum(my.table[,4]), sum(my.table[,5]),
+                    round(100*(sum(my.table[,4])/sum(my.table[,5])), 1)))
+kable(my.table, format = "markdown",
+      align = c("l", "l", "r", "r", "r", "r"))
+
+```
+
+<a href="#top"> [Back to top] </a>
+
+## 5.4 Contributing dialysis studies by GNI group
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+this.text <- function(x){unique(as.character(x))}
+count.names <- function(x){length(unique(x))}
+my.table <- merge(aggregate(Country ~ GNI_group, data = PEW, FUN = this.text),
+                  merge(aggregate(Study_name ~ GNI_group, data = PEW, FUN = count.names),
+                        merge(aggregate(Cases ~ GNI_group, data = PEW, FUN = sum), 
+                              aggregate(N ~ GNI_group, data = PEW, FUN = sum),
+                              by = "GNI_group"),
+                        by = "GNI_group"),
+                  by = "GNI_group")
+my.table <- data.frame(my.table, Raw_percent = round(100*(my.table$Cases/my.table$N), 1))
+colnames(my.table) <- c("GNI Group", "Countries","No. of studies", "Combined Cases", "Combined N", "Raw % Cases")
+
+my.table[ , "GNI Group"] <- as.character(my.table[ , "GNI Group"])
+my.table <- rbind(my.table,
+                  c("Total", " ", sum(my.table[,3]), sum(my.table[,4]), sum(my.table[,5]),
+                    round(100*(sum(my.table[,4])/sum(my.table[,5])), 1)))
+kable(my.table, format = "markdown",
+      align = c("l", "l", "r", "r", "r", "r"))
+
+```
+
+<a href="#top"> [Back to top] </a>
+
+
+# Software/R packages used for this document
+<a href="#top"> [Back to top] </a>
+
+The following software/R-packages have been very helpful in compiling this document and
+are gratefully acknowledged.
+
+
+| Package  | Reference       |
+|:-----:|:---------------------------------------------------------------------|
+| R | `r citation("base")$textVersion` |
+| R Studio | RStudio Team (2016). RStudio: Integrated Development for R. RStudio, Inc., Boston, MA URL http://www.rstudio.com/. |
+| knitr | `r citation("knitr")$textVersion` |
+| rmarkdown | `r citation("rmarkdown")$textVersion`
+| metafor | `r citation("metafor")$textVersion`  |
+
+
+
+<a href="#top"> [Back to top] </a>
+
+<!-- # Details about R session that created this document -->
+<!-- <a href="#top"> [Back to top] </a> -->
+
+<!-- Date and time of R-execution that created this file: `r date()`. -->
+
+
+<!-- ```{r, echo = FALSE} -->
+<!-- devtools::session_info() -->
+<!-- ``` -->
+
+
+<!-- <a href="#top"> [Back to top] </a> -->
+
+
+*****
+
+End of document
+
+*****
