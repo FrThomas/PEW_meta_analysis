@@ -62,6 +62,30 @@ options(width = 80)
 &nbsp;
 &nbsp;
 
+Supplemental information to
+
+**Global prevalence of protein-energy wasting (PEW) in kidney disease:
+a meta-analysis of contemporary cohort studies from the International
+Society of Renal Nutrition and Metabolism (ISRNM)**
+
+by
+
+Juan J Carrero, Fridtjof Thomas, Kristóf Nagy, Fatiu Arogundade, Carla M Avesani,
+Maria Chan, Michal Chmielewski, Antonio C Cordeiro, Angeles Espinosa-Cuevas,
+Enrico Fiaccadori, Fitsum Guebre-Egziabher, Rosa K Hand, Adriana M Hung,
+Talat A Ikizler, Lina R Johansson, Kamyar Kalantar-Zadeh, Tilakavati Karupaiah,
+Bengt Lindholm, Peter Marckmann, Denise Mafra, Jongha Park, Anita Saxena,
+Siren Sezer, Daniel Teta, Pieter M Ter Wee, Cecile Verseput, Angela YM Wang,
+Hong Xu, Lu Yimin, Miklos Z Molnar, Csaba P Kovesdy
+
+
+> This file is intended to be viewed as **html-file**. The corresponding *html-file,
+R Markdown computer code, and the dataset* are available as described
+[HERE](https://github.com/FrThomas/PEW_meta_analysis/blob/master/README.md).
+
+&nbsp;
+&nbsp;
+
 *****
 
 **Naming conventions:** We follow the United Nation’s association of
@@ -797,3 +821,4 @@ are gratefully acknowledged.
 End of document
 
 *****
+
