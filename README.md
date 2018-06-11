@@ -1,7 +1,7 @@
 # Readme file for PEW_meta_analysis
 This directory contains supplemental material for the main manuscript
 
-Recommended procedure to assess the material:
+Recommended procedure to access the material:
 1) Go to https://github.com/FrThomas/PEW_meta_analysis
 2) Find the "Clone or Download" button and download the zipped material to your computer
    (e.g., as file PEW_meta_analysis-master.zip)
