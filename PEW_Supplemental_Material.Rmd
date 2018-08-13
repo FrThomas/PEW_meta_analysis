@@ -1,6 +1,6 @@
 ---
 title: 'ISRNM Global prevalence of PEW: Supplemental Information'
-author: "(June 11, 2018)"
+author: "(August 13, 2018)"
 date: ""
 output:
   html_document:
@@ -65,7 +65,7 @@ options(width = 80)
 Supplemental information to
 
 **Global prevalence of protein-energy wasting (PEW) in kidney disease:
-a meta-analysis of contemporary cohort studies from the International
+a meta-analysis of contemporary observational studies from the International
 Society of Renal Nutrition and Metabolism (ISRNM)**
 
 by
@@ -74,9 +74,9 @@ Juan J Carrero, Fridtjof Thomas, Kristóf Nagy, Fatiu Arogundade, Carla M Avesan
 Maria Chan, Michal Chmielewski, Antonio C Cordeiro, Angeles Espinosa-Cuevas,
 Enrico Fiaccadori, Fitsum Guebre-Egziabher, Rosa K Hand, Adriana M Hung,
 Talat A Ikizler, Lina R Johansson, Kamyar Kalantar-Zadeh, Tilakavati Karupaiah,
-Bengt Lindholm, Peter Marckmann, Denise Mafra, Jongha Park, Anita Saxena,
-Siren Sezer, Daniel Teta, Pieter M Ter Wee, Cecile Verseput, Angela YM Wang,
-Hong Xu, Lu Yimin, Miklos Z Molnar, Csaba P Kovesdy
+Bengt Lindholm, Peter Marckmann, Denise Mafra, Rulan S Parekh, Jongha Park,
+Sharon Russo, Anita Saxena, Siren Sezer, Daniel Teta, Pieter M Ter Wee,
+Cecile Verseput, Angela YM Wang, Hong Xu, Lu Yimin, Miklos Z Molnar, Csaba P Kovesdy
 
 
 > This file is intended to be viewed as **html-file**. The corresponding *html-file,
@@ -683,11 +683,12 @@ the name used by that country in official documents. See the
 
 ## 5.1 Contributing dialysis studies by regions as used for this study
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
-this.text <- function(x){unique(as.character(x))}
+this.text <- function(x){paste(unique(as.character(x)), collapse = ", ")}
 count.names <- function(x){length(unique(x))}
+
 my.table <- merge(aggregate(Country ~ Region_PEW, data = PEW, FUN = this.text),
                   merge(aggregate(Study_name ~ Region_PEW, data = PEW, FUN = count.names),
-                        merge(aggregate(Cases ~ Region_PEW, data = PEW, FUN = sum), 
+                        merge(aggregate(Cases ~ Region_PEW, data = PEW, FUN = sum),
                               aggregate(N ~ Region_PEW, data = PEW, FUN = sum),
                               by = "Region_PEW"),
                         by = "Region_PEW"),
@@ -700,6 +701,10 @@ my.table[ , "Region (as used in this study)"] <- as.character(my.table[ , "Regio
 my.table <- rbind(my.table,
                   c("Total", " ", sum(my.table[,3]), sum(my.table[,4]), sum(my.table[,5]),
                     round(100*(sum(my.table[,4])/sum(my.table[,5])), 1)))
+
+my.table[,"Raw % Cases"] <- formatC(100*(as.numeric(my.table[,"Combined Cases"])/
+                                           as.numeric(my.table[, "Combined N"])), format = 'f', digits = 1)
+
 kable(my.table, format = "markdown",
       align = c("l", "l", "r", "r", "r", "r"))
 
@@ -709,7 +714,7 @@ kable(my.table, format = "markdown",
 
 ## 5.2 Contributing dialysis studies by geographic region
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
-this.text <- function(x){unique(as.character(x))}
+this.text <- function(x){paste(unique(as.character(x)), collapse = ", ")}
 count.names <- function(x){length(unique(x))}
 my.table <- merge(aggregate(Country ~ Geographic_Region, data = PEW, FUN = this.text),
                   merge(aggregate(Study_name ~ Geographic_Region, data = PEW, FUN = count.names),
@@ -725,6 +730,10 @@ my.table[ , "Geographic Region"] <- as.character(my.table[ , "Geographic Region"
 my.table <- rbind(my.table,
                   c("Total", " ", sum(my.table[,3]), sum(my.table[,4]), sum(my.table[,5]),
                     round(100*(sum(my.table[,4])/sum(my.table[,5])), 1)))
+
+my.table[,"Raw % Cases"] <- formatC(100*(as.numeric(my.table[,"Combined Cases"])/
+                                           as.numeric(my.table[, "Combined N"])), format = 'f', digits = 1)
+
 kable(my.table, format = "markdown",
       align = c("l", "l", "r", "r", "r", "r"))
 
@@ -734,7 +743,7 @@ kable(my.table, format = "markdown",
 
 ## 5.3 Contributing dialysis studies by geographic subregion
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
-this.text <- function(x){unique(as.character(x))}
+this.text <- function(x){paste(unique(as.character(x)), collapse = ", ")}
 count.names <- function(x){length(unique(x))}
 my.table <- merge(aggregate(Country ~ Geographic_Subregion, data = PEW, FUN = this.text),
                   merge(aggregate(Study_name ~ Geographic_Subregion, data = PEW, FUN = count.names),
@@ -750,6 +759,10 @@ my.table[ , "Geographic Subregion"] <- as.character(my.table[ , "Geographic Subr
 my.table <- rbind(my.table,
                   c("Total", " ", sum(my.table[,3]), sum(my.table[,4]), sum(my.table[,5]),
                     round(100*(sum(my.table[,4])/sum(my.table[,5])), 1)))
+
+my.table[,"Raw % Cases"] <- formatC(100*(as.numeric(my.table[,"Combined Cases"])/
+                                           as.numeric(my.table[, "Combined N"])), format = 'f', digits = 1)
+
 kable(my.table, format = "markdown",
       align = c("l", "l", "r", "r", "r", "r"))
 
@@ -759,7 +772,7 @@ kable(my.table, format = "markdown",
 
 ## 5.4 Contributing dialysis studies by GNI group
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
-this.text <- function(x){unique(as.character(x))}
+this.text <- function(x){paste(unique(as.character(x)), collapse = ", ")}
 count.names <- function(x){length(unique(x))}
 my.table <- merge(aggregate(Country ~ GNI_group, data = PEW, FUN = this.text),
                   merge(aggregate(Study_name ~ GNI_group, data = PEW, FUN = count.names),
@@ -775,6 +788,10 @@ my.table[ , "GNI Group"] <- as.character(my.table[ , "GNI Group"])
 my.table <- rbind(my.table,
                   c("Total", " ", sum(my.table[,3]), sum(my.table[,4]), sum(my.table[,5]),
                     round(100*(sum(my.table[,4])/sum(my.table[,5])), 1)))
+
+my.table[,"Raw % Cases"] <- formatC(100*(as.numeric(my.table[,"Combined Cases"])/
+                                           as.numeric(my.table[, "Combined N"])), format = 'f', digits = 1)
+
 kable(my.table, format = "markdown",
       align = c("l", "l", "r", "r", "r", "r"))
 
@@ -782,6 +799,36 @@ kable(my.table, format = "markdown",
 
 <a href="#top"> [Back to top] </a>
 
+## 5.5 Contributing dialysis studies by country
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+count.names <- function(x){length(unique(x))}
+
+my.table <- merge(data.frame(Country = unique(PEW$Country)),
+                  merge(aggregate(Study_name ~ Country, data = PEW, FUN = count.names),
+                        merge(aggregate(Cases ~ Country, data = PEW, FUN = sum),
+                              aggregate(N ~ Country, data = PEW, FUN = sum),
+                              by = "Country"),
+                        by = "Country"),
+                  by = "Country")
+my.table <- data.frame(my.table, Raw_percent = round(100*(my.table$Cases/my.table$N), 1))
+
+colnames(my.table) <- c("Country","No. of studies", "Combined Cases", "Combined N", "Raw % Cases")
+
+my.table[ , "Country"] <- as.character(my.table[ , "Country"])
+
+my.table <- rbind(my.table,
+                  c("Total", sum(my.table[,2]), sum(my.table[,3]), sum(my.table[,4]),
+                    round(100*(sum(my.table[,3])/sum(my.table[,4])), 1)))
+
+my.table[,"Raw % Cases"] <- formatC(100*(as.numeric(my.table[,"Combined Cases"])/
+                                           as.numeric(my.table[, "Combined N"])), format = 'f', digits = 1)
+
+kable(my.table, format = "markdown",
+      align = c("l", "r", "r", "r", "r"))
+
+```
+
+<a href="#top"> [Back to top] </a>
 
 # Software/R packages used for this document
 <a href="#top"> [Back to top] </a>
@@ -821,4 +868,3 @@ are gratefully acknowledged.
 End of document
 
 *****
-
